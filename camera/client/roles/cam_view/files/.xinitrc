@@ -18,4 +18,4 @@ matchbox-window-manager \
 
 # start the app
 cd /opt/cam_view
-./run | logger -s -t "cam_view"
+./run 2>&1 | logger -s -t "cam_view"
