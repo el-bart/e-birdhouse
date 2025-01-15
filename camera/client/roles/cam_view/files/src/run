@@ -13,7 +13,7 @@ function find_camera
 }
 
 
-while sleep 5
+while sleep 15
 do
   date
   if ping -c 4 -DO -W 3 "$preferred_ip"
