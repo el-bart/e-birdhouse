@@ -1,5 +1,6 @@
 #!/bin/bash
-set -eux -o pipefail
+set -eu -o pipefail
+set -x
 
 cd /opt/cam_view
 source .env
@@ -13,7 +14,7 @@ function find_camera
     | head -1
 }
 
-while sleep 1
+while sleep 5
 do
   date
   ip=$(find_camera || continue)
