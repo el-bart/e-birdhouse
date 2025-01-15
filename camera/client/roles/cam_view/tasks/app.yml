@@ -3,6 +3,7 @@
     state: latest
     name:
       - mpv
+      - nmap
 
 - name: create application directory
   file:
@@ -11,8 +12,12 @@
 
 - name: copy application
   copy:
-    src: 'run'
-    dest: '/opt/cam_view/'
-    mode: '0755'
+    src: 'src/{{ item.file }}'
+    dest: '/opt/cam_view/{{ item.file }}'
+    mode: '{{ item.mode }}'
+  with_items:
+    - { file: run,     mode: '755' }
+    - { file: receive, mode: '755' }
+    - { file: mpv.lua, mode: '644' }
   notify:
     - enable autologin getty on tty1
