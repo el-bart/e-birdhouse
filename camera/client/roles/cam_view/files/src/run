@@ -9,14 +9,20 @@ function find_camera
 {
   nmap -oG - -v -p "$port" "$netroot.0/24" \
     | grep "^Host: $netroot.[0-9]\+ ().*Ports: $port/" \
-    | awk '{ print $2 }' \
-    | sort -R \
-    | head -1
+    | awk '{ print $2 }'
 }
+
 
 while sleep 5
 do
   date
-  ip=$(find_camera || continue)
-  time ./receive "$ip"
+  if ping -c 4 -DO -W 3 "$preferred_ip"
+  then
+      time ./receive "$preferred_ip" || true
+  else
+    for ip in $(find_camera || continue)
+    do
+      time ./receive "$ip" || true
+    done
+  fi
 done
