@@ -8,7 +8,7 @@ source .env
 function find_camera
 {
   nmap -oG - -v -p "$port" "$netroot.0/24" \
-    | grep "^Host: $netroot.[0-9]\+ ().*Ports: $port/" \
+    | grep "^Host: $netroot.[0-9]\+ ().*Ports: $port/open/tcp/" \
     | awk '{ print $2 }'
 }
 
