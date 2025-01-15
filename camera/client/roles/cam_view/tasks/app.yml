@@ -1,0 +1,18 @@
+- name: install app dependecies
+  apt:
+    state: latest
+    name:
+      - mpv
+
+- name: create application directory
+  file:
+    path: /opt/cam_view
+    state: directory
+
+- name: copy application
+  copy:
+    src: 'run'
+    dest: '/opt/cam_view/'
+    mode: '0755'
+  notify:
+    - enable autologin getty on tty1

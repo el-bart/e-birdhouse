@@ -1,0 +1,9 @@
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+
+- name: enable autologin getty on tty1
+  systemd:
+    name: getty@tty1
+    enabled: yes
+    state: restarted

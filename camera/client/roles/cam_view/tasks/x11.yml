@@ -1,0 +1,25 @@
+- name: install X11 environment packages
+  apt:
+    state: latest
+    name:
+      - matchbox
+      - x11-xserver-utils
+      - xinit
+
+- name: enable autologin functionality on tty1 only
+  ini_file:
+    path: /etc/systemd/logind.conf
+    section: Login
+    option: NAutoVTs
+    value: '1'
+    state: present
+  notify:
+    - reload systemd
+
+- name: copy getty config with tty1 autologin
+  copy:
+    src: getty_tty1_override.service
+    dest: /etc/systemd/system/getty@tty1.service.d/override.conf
+  notify:
+    - reload systemd
+    - enable autologin getty on tty1
