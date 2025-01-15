@@ -10,6 +10,11 @@
     path: /opt/cam_view
     state: directory
 
+- name: create configuration file
+  template:
+    src: env.j2
+    dest: /opt/cam_view/.env
+
 - name: copy application
   copy:
     src: 'src/{{ item.file }}'

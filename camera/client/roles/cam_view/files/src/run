@@ -1,8 +1,8 @@
 #!/bin/bash
 set -eux -o pipefail
 
-port=8554
-netroot=192.168.101
+cd /opt/cam_view
+source .env
 
 function find_camera
 {
@@ -12,8 +12,6 @@ function find_camera
     | sort -R \
     | head -1
 }
-
-cd /opt/cam_view
 
 while sleep 1
 do
