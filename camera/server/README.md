@@ -30,12 +30,3 @@ cd sw
 
 remove jumper and press reset button again.
 boot sequence should show up on a serial console.
-
-
-## client
-
-use:
-```
-./receive <IP_of_your_esp32-cam>
-```
-to view the live stream.
