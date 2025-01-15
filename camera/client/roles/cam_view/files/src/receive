@@ -20,6 +20,7 @@ flags+=(--profile=low-latency)
 flags+=(--script="mpv.lua") # checks for stream position and reconnects if no change for 5s
 #flags+=(--fs)
 #flags+=(--network-timeout=10)
+flags+=(--msg-level="all=info")
 flags+=("rtsp://$IP:8554/mjpeg/2") # stream address
 
 exec mpv "${flags[@]}"
