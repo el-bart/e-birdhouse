@@ -22,6 +22,7 @@
     mode: '{{ item.mode }}'
   with_items:
     - { file: run,     mode: '755' }
+    - { file: stop,    mode: '755' }
     - { file: receive, mode: '755' }
     - { file: mpv.lua, mode: '644' }
   notify:
