@@ -13,7 +13,7 @@ function find_camera
 }
 
 
-while sleep 15
+while sleep 1
 do
   date
   if ping -c 4 -DO -W 3 "$preferred_ip"
@@ -25,4 +25,5 @@ do
       time ./receive "$ip" || true
     done
   fi
+  sleep 15
 done
