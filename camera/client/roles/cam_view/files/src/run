@@ -13,17 +13,19 @@ function find_camera
 }
 
 
-while sleep 1
-do
-  date
-  if ping -c 4 -DO -W 3 "$preferred_ip"
-  then
-      time ./receive "$preferred_ip" || true
-  else
-    for ip in $(find_camera || continue)
-    do
-      time ./receive "$ip" || true
-    done
-  fi
-  sleep 15
-done
+date
+
+[ -n "${DISPLAY:-}" ] || exit 3
+xrandr # log it on the screen
+xrandr | grep 'HDMI-[0-9] connected' || exit 4
+sleep 5 # grace time, in case monitor was just connected
+
+if ping -c 4 -DO -W 3 "$preferred_ip"
+then
+    time ./receive "$preferred_ip"
+else
+  for ip in $(find_camera || continue)
+  do
+    time ./receive "$ip"
+  done
+fi
