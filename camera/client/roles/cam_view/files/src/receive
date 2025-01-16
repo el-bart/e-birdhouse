@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu -o pipefail
 if [ $# -ne 1 ]
 then
   echo "$0 <esp32-cam_IP>" >&2
@@ -6,8 +7,6 @@ then
 fi
 IP=$1
 shift 1
-
-timeout_s=10
 
 flags=()
 flags+=(-v) # be verbose
@@ -23,4 +22,5 @@ flags+=(--script="mpv.lua") # checks for stream position and reconnects if no ch
 flags+=(--msg-level="all=info")
 flags+=("rtsp://$IP:8554/mjpeg/2") # stream address
 
+set -x
 exec mpv "${flags[@]}"
