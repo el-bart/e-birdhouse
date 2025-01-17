@@ -1,5 +1,6 @@
 #include <OV2640.h>
 #include "watchdog.hpp"
+#include "ext_watchdog.hpp"
 #include "wifi.hpp"
 #include "wifi_creds.hpp"
 #include "RTSP_server.hpp"
@@ -46,6 +47,10 @@ void setup()
     Serial.printf("starting RTSP server on rtsp://%s:%d/mjpeg/2\r\n", WiFi.localIP().toString().c_str(), RTSP_server::port());
     rtsp_server.reset(new RTSP_server{camera});
 
+    // NOTE: initializing this one late, to make sure boot sequence is not covered by updates here
+    Serial.println("initializing external watchdog");
+    ext_watchdog_init();
+
     Serial.println("initialization sequence completed!");
     Serial.println("----------------------------------");
   }
@@ -62,6 +67,7 @@ void loop()
   try
   {
     rtsp_server->update();
+    ext_watchdog_reset();
   }
   catch(std::exception const& ex)
   {
