@@ -9,6 +9,13 @@ LED_d = 5 + 0.2;
 LED_off_from_edge = 15;
 
 
+module move_from_center()
+{
+  translate(0.5*[base.x, base.y , 0])
+    children();
+}
+
+
 module plate()
 {
   module camera_slot()
@@ -40,13 +47,13 @@ module plate()
             cylinder(d=LED_d, h=plate_size.z+2*eps, $fn=fn(30));
     }
   }
-  
+
   module screw_holes()
   {
     difference()
     {
       children();
-      translate(0.5*[base.x, base.y , 0])
+      move_from_center()
         holes_pos()
           translate([0,0,-eps])
             cylinder(d=screw_d + 0.5, h=plate_size.z+2*eps, $fn=fn(30));
@@ -61,3 +68,8 @@ module plate()
 
 
 plate();
+%if($preview)
+  translate([0, 0, -2])
+    move_from_center()
+      rotate([180, 0, 0])
+        plate_holder();
