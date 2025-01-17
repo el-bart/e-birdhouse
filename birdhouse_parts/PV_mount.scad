@@ -38,6 +38,7 @@ module PV_mock()
 module PV_mount()
 {
   h = 3;
+
   module booms()
   {
     support_circle_d = 20;
@@ -64,7 +65,7 @@ module PV_mount()
           union()
           {
             impl(support_circle_d, h);
-            impl(2, 2*h);
+            impl(3, 2*h);
           }
           translate([-d/2 + dir*d/2, -d, -eps])
             cube([d, 2*d, 2*h+2*eps]);
@@ -84,7 +85,7 @@ module PV_mount()
   {
     roof_span_ext = 160.3 + 2*0.5;
     arm_length = 60;
-    
+
     module assembly()
     {
       module arm(dir, with_top=true)
