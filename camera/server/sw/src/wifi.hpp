@@ -63,7 +63,6 @@ inline void wifi_init()
 
 inline void wifi_scan()
 {
-  watchdog_reset();
   Serial.println("scanning for nearby WiFi networks");
   auto const n = WiFi.scanNetworks();
   if( n < 0)
@@ -72,7 +71,6 @@ inline void wifi_scan()
     return;
   }
   Serial.printf("WiFi scanning completed - got %d instances:\r\n", n);
-  watchdog_reset();
 
   for(auto i=0; i<n; ++i)
   {
@@ -82,7 +80,6 @@ inline void wifi_scan()
     Serial.printf("%30s | %4d | %s\r\n", ssid.c_str(), rssi, enc);
   }
   Serial.println();
-  watchdog_reset();
 }
 
 
