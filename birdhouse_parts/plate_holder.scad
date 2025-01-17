@@ -21,10 +21,10 @@ module plate_holder()
     }
   }
 
-  module corners()
+  module corner(hole=true)
   {
     s = 2*(span+r);
-    module corner()
+    difference()
     {
       linear_extrude(h)
         polygon([
@@ -32,34 +32,55 @@ module plate_holder()
           [s, 0],
           [0, s]
         ]);
+      if(hole)
+        translate(s*1/3*[1,1,0] + [0, 0, 4+h-eps])
+          ti_cnck_m3_short(dl=h);
     }
+  }
 
+  module corners_pos()
+  {
     x = base.x/2;
     y = base.y/2;
     translate([-x, -y, 0])
       rotate([0, 0, -0])
-        corner();
+        children();
     translate([-x, y, 0])
       rotate([0, 0, -90])
-        corner();
+        children();
     translate([x, y, 0])
       rotate([0, 0, -180])
-        corner();
+        children();
     translate([x, -y, 0])
       rotate([0, 0, -270])
-        corner();
+        children();
+  }
+
+  module corners(holes)
+  {
+    corners_pos()
+      corner(hole=holes);
+  }
+
+  module outline()
+  {
+    translate([-base.x/2, -base.y/2, 0])
+      side_rounded_cube(base + [0,0,h], r, $fn=fn(30));
   }
 
   intersection()
   {
     union()
     {
-      translate([-base.x/2, -base.y/2, 0])
-        boarder();
-      corners();
+      difference()
+      {
+        translate([-base.x/2, -base.y/2, 0])
+          boarder();
+        corners(holes=false);
+      }
+      corners(holes=true);
     }
-    translate([-base.x/2, -base.y/2, 0])
-      side_rounded_cube(base + [0,0,h], r, $fn=fn(30));
+    outline();
   }
 }
 
