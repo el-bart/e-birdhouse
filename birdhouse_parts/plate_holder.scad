@@ -1,15 +1,33 @@
 include <detail/config.scad>
 include <m3d/all.scad>
 
+spacing = 0.5;
+base_xy = bh_int_size - spacing*[1,1];
+base = [base_xy.x, base_xy.y, 1];
+span = 5;
+r = 3;
+h = 2*span;
+
+module holes_pos()
+{
+  off = threaded_insert_from_edge + 3/2;
+  x = base.x/2 - off;
+  y = base.y/2- off;
+  for(dx=[-x, +x])
+    for(dy=[-y, +y])
+      translate([dx, dy, 0])
+        children();
+}
+
+module outline()
+{
+  translate([-base.x/2, -base.y/2, 0])
+    side_rounded_cube(base + [0,0,h], r, $fn=fn(30));
+}
+
+
 module plate_holder()
 {
-  spacing = 0.5;
-  base_xy = bh_int_size - spacing*[1,1];
-  base = [base_xy.x, base_xy.y, 1];
-  span = 5;
-  r = 3;
-  h = 2*span;
-
   module boarder()
   {
     base_int = base - span*[2,2,0];
@@ -21,7 +39,7 @@ module plate_holder()
     }
   }
 
-  module corner(hole=true)
+  module corner()
   {
     s = 2*(span+r);
     difference()
@@ -32,9 +50,6 @@ module plate_holder()
           [s, 0],
           [0, s]
         ]);
-      if(hole)
-        translate(s*1/3*[1,1,0] + [0, 0, 4+h-eps])
-          ti_cnck_m3_short(dl=h);
     }
   }
 
@@ -59,26 +74,22 @@ module plate_holder()
   module corners(holes)
   {
     corners_pos()
-      corner(hole=holes);
-  }
-
-  module outline()
-  {
-    translate([-base.x/2, -base.y/2, 0])
-      side_rounded_cube(base + [0,0,h], r, $fn=fn(30));
+      corner();
   }
 
   intersection()
   {
-    union()
+    difference()
     {
-      difference()
+      union()
       {
         translate([-base.x/2, -base.y/2, 0])
           boarder();
-        corners(holes=false);
+        corners();
       }
-      corners(holes=true);
+      holes_pos()
+        translate([0, 0, 4+h-eps])
+          ti_cnck_m3_short(dl=h);
     }
     outline();
   }

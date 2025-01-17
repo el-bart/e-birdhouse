@@ -1,1 +1,2 @@
 bh_int_size = [117.8, 100.0];
+threaded_insert_from_edge = 4;
