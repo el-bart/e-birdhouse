@@ -26,5 +26,6 @@ target_link_libraries(ext_wdg pico_stdlib)
 # create map/bin/hex/uf2 file etc.
 pico_add_extra_outputs(ext_wdg)
 
-pico_enable_stdio_uart(ext_wdg 1)
-pico_enable_stdio_usb (ext_wdg 0)
+# log to USB serial
+pico_enable_stdio_uart(ext_wdg 0)
+pico_enable_stdio_usb (ext_wdg 1)
