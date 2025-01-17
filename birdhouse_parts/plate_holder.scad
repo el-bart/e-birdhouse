@@ -10,7 +10,7 @@ h = 2*span;
 
 module holes_pos()
 {
-  off = threaded_insert_from_edge + 3/2;
+  off = threaded_insert_from_edge + screw_d/2;
   x = base.x/2 - off;
   y = base.y/2- off;
   for(dx=[-x, +x])
@@ -89,7 +89,10 @@ module plate_holder()
       }
       holes_pos()
         translate([0, 0, 4+h-eps])
+        {
+          assert(screw_d == 3);
           ti_cnck_m3_short(dl=h);
+        }
     }
     outline();
   }
