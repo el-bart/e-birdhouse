@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eux -o pipefail
+mkdir -p build
+time ./rp2040_sdk cmake -G Ninja -B build/ .
+time ./rp2040_sdk ninja -C build/
+#time ./rp2040_sdk rp2040_flash ext_wdg.elf
