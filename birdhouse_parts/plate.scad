@@ -5,7 +5,7 @@ include <m3d/all.scad>
 
 plate_size = [base.x, base.y, 3];
 camera_d = 10.1 + 0.5;
-LED_d = 5 + 0.2;
+LED_d = 5 + 0.4;
 LED_off_from_edge = 15;
 
 
