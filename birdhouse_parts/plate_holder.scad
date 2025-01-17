@@ -1,11 +1,7 @@
-include <detail/config.scad>
+include <detail/plate_config.scad>
 include <m3d/all.scad>
 
-spacing = 0.5;
-base_xy = bh_int_size - spacing*[1,1];
-base = [base_xy.x, base_xy.y, 1];
 span = 5;
-r = 3;
 h = 2*span;
 
 module holes_pos()
