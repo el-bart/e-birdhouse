@@ -48,8 +48,8 @@ void setup()
     rtsp_server.reset(new RTSP_server{camera});
 
     // NOTE: initializing this one late, to make sure boot sequence is not covered by updates here
-    Serial.println("initializing external watchdog");
     ext_watchdog_init();
+    Serial.println("external watchdog enabled");
 
     Serial.println("initialization sequence completed!");
     Serial.println("----------------------------------");
