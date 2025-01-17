@@ -3,6 +3,7 @@ include <m3d/all.scad>
 
 span = 5;
 h = 2*span;
+edge = base.z;
 
 module holes_pos()
 {
@@ -29,9 +30,13 @@ module plate_holder()
     base_int = base - span*[2,2,0];
     difference()
     {
-      cube(base);
+      cube(base + [0,0,edge]);
+      // internal cut
       translate([span, span, -eps])
         cube(base_int + [0,0,2*eps]);
+      // edge
+      translate(edge*[1,1,0] + [0,0,base.z - eps])
+        cube(base - edge*[2,2,0] + [0,0,2*eps]);
     }
   }
 
