@@ -90,6 +90,7 @@ module PV_mount()
       module arm(dir, with_top=true)
       {
         wall = 3;
+        wall_length = 25;
         span_int = 14.5;
         span_ext = span_int + 2*wall;
 
@@ -97,9 +98,12 @@ module PV_mount()
         {
           if(with_top)
             cube([span_ext, 5, arm_length]);
+          // internal wing
+          translate([dir==-1 ? span_ext-wall : 0, -wall_length, -arm_length])
+              cube([wall, wall_length, 2*arm_length]);
+          // external wind
           difference()
           {
-            wall_length = 25;
             translate([dir==+1 ? span_ext-wall : 0, -wall_length, -arm_length])
               cube([wall, wall_length, 2*arm_length]);
             // screw holes
