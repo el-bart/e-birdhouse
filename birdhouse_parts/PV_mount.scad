@@ -1,8 +1,8 @@
 include <m3d/all.scad>
 
 roof_panel_angle = 90-50;
-holes_span = [260.1, 150.6];
-pv_size = [270.4, 169, 1.75];
+holes_span = [260.1+2.6, 150.6+6];
+pv_size = [270.5, 169, 1.75];
 
 module PV_mount_holes_pos()
 {
