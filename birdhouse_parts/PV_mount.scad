@@ -86,7 +86,7 @@ module PV_mount()
   {
     wall = 3;
     // 1st (invalid) print + skinner coefficient: 161.3+10 == 171.3
-    roof_span_int = 165+1;
+    roof_span_int = 164 + 1;
     roof_span_ext = roof_span_int + 2*wall;
     arm_length = 60;
 
@@ -132,8 +132,22 @@ module PV_mount()
       arms();
       difference()
       {
-        translate([-roof_span_ext/2, 0, 0])
-          cube([roof_span_ext, 30, 35]);
+        union()
+        {
+          // main block
+          translate([-roof_span_ext/2, 0, 0])
+            cube([roof_span_ext, 30, 35]);
+          // additional support for lower booms
+          for(dx=[-1,+1])
+            translate([dx*roof_span_ext/2, 11, 0])
+              hull()
+              {
+                scale([2, 1, 1])
+                  cylinder(d=20, h=h);
+                translate([0, 0, 20])
+                  cylinder(d=2, h=eps);
+              }
+        }
         hull()
           arms(with_top=false);
       }
