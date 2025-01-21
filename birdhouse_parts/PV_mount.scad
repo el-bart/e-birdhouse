@@ -2,7 +2,7 @@ include <m3d/all.scad>
 
 roof_panel_angle = 90-50;
 holes_span = [260.1+2.6, 150.6+6];
-pv_size = [270.5, 169, 1.75];
+pv_size = [275, 170, 1.75];
 
 module PV_mount_holes_pos()
 {
@@ -83,14 +83,16 @@ module PV_mount()
   
   module roof_mount()
   {
-    roof_span_ext = 160.3 + 2*0.5;
+    wall = 3;
+    // 1st (invalid) print + skinner factor: 161.3+10
+    roof_span_int = 165;
+    roof_span_ext = roof_span_int + 2*wall;
     arm_length = 60;
 
     module assembly()
     {
       module arm(dir, with_top=true)
       {
-        wall = 3;
         wall_length = 25;
         span_int = 14.5;
         span_ext = span_int + 2*wall;
@@ -99,7 +101,7 @@ module PV_mount()
         {
           if(with_top)
             cube([span_ext, 5, arm_length]);
-          // external wind
+          // external wing
           difference()
           {
             translate([dir==+1 ? span_ext-wall : 0, -wall_length, -arm_length])
