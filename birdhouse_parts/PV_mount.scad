@@ -105,19 +105,18 @@ module PV_mount()
           // external wing
           difference()
           {
-            translate([dir==+1 ? span_ext-wall : 0, -wall_length, -arm_length])
-              cube([wall, wall_length, 2*arm_length]);
+            translate([dir==+1 ? span_ext-wall : 0, -wall_length, 0])
+              cube([wall, wall_length, arm_length]);
             // screw holes
-            rows = 2*3;
+            rows = 3;
             cols = 2;
-            translate([0, 0, -arm_length])
-              for(i=[0:rows-1])
-                for(j=[0:cols-1])
-                  translate([-eps + (dir==+1 ? span_int+wall : 0),
-                               wall_length/cols/2 - (j+1)* wall_length/cols,
-                             -2*arm_length/rows/2 + (i+1)*2*arm_length/rows])
-                    rotate([0, 90, 0])
-                      cylinder(d=2.8+0.5, h=wall+2*eps, $fn=fn(30));
+            for(i=[0:rows-1])
+              for(j=[0:cols-1])
+                translate([-eps + (dir==+1 ? span_int+wall : 0),
+                             wall_length/cols/2 - (j+1)*wall_length/cols,
+                             -arm_length/rows/2 + (i+1)* arm_length/rows])
+                  rotate([0, 90, 0])
+                    cylinder(d=2.8+0.5, h=wall+2*eps, $fn=fn(30));
           }
         }
       }
