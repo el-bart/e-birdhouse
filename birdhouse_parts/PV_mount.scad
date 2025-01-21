@@ -99,9 +99,6 @@ module PV_mount()
         {
           if(with_top)
             cube([span_ext, 5, arm_length]);
-          // internal wing
-          translate([dir==-1 ? span_ext-wall : 0, -wall_length, -arm_length])
-              cube([wall, wall_length, 2*arm_length]);
           // external wind
           difference()
           {
