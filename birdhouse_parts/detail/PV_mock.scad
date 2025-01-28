@@ -15,7 +15,7 @@ module PV_mount_holes_pos()
 
 module PV_mock()
 {
-  box = [28, 29.1, 11.5];
+  box = [38, 30, 11.5];
 
   translate([0, 0, -pv_size.z])
     difference()
@@ -33,3 +33,7 @@ module PV_mock()
           cylinder(d=6.1, h=pv_size.z+2*eps);
     }
 }
+
+
+%if(0)
+  PV_mock();
