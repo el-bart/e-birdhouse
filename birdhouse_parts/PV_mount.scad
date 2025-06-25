@@ -1,3 +1,4 @@
+// you need to print 6 of these, but sequentially - otherwise it's too easy to knock things down
 include <m3d/all.scad>
 
 module PV_mount()
