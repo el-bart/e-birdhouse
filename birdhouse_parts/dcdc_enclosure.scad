@@ -66,11 +66,12 @@ module enclosure(mocks=false)
       side_rounded_cube(box_ext, rounding);
       translate(wall*[1,1,0] + eps*[0,0,-1])
         side_rounded_cube(box_int + wall*[0,0,1] + eps*[0,0,2], rounding-wall);
-      // zipties slot for cable mount
-      for(dy=[-1,+1])
-        translate([0, dy*(PV_cable_d/2 + 1), box_ext.z - zip_tie_slot.z - 5])
-          translate([-eps, -zip_tie_slot.y/2 + box_ext.y/2, 0])
-          cube(zip_tie_slot);
+      // zip ties slots for cable mounts
+      for(dx=[0, box_ext.x-wall])
+        for(dy=[-1,+1])
+          translate([dx, dy*(PV_cable_d/2 + 1), box_ext.z - zip_tie_slot.z - 5])
+            translate([-eps, -zip_tie_slot.y/2 + box_ext.y/2, 0])
+            cube(zip_tie_slot);
     }
   }
 
